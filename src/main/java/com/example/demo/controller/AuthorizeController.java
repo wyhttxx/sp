@@ -22,7 +22,7 @@ public class AuthorizeController {
         acessTokenDTO.setClient_id("5162d050da0daafd0f0a");
         acessTokenDTO.setClient_secret("9619af3b58aa97ac1c1bd87a1f2f73851cc96208");
         acessTokenDTO.setCode(code);
-        acessTokenDTO.setRedirect_uri("http:127.0.0.1:8887/callback");
+        acessTokenDTO.setRedirect_uri("http://127.0.0.1:8887/callback");
         acessTokenDTO.setState(state);
 
 
