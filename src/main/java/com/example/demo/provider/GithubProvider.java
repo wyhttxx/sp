@@ -21,30 +21,36 @@ public class GithubProvider {
                 .url("https://github.com/login/oauth/access_token")
                 .post(body)
                 .build();
-        try (Response response = client.newCall(request).execute()) {
+        try {
+            Response response = client.newCall(request).execute();
             String string = response.body().string();
             System.out.println(string);
-            return string;
+            String token=string.split("&")[0].split("=")[1];
+            return token;
 //                alt+enter处理异常
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
 
         }
         return null;
     }
-        public GithubUser getUser (String acessToken){
+        public GithubUser getUser (String accessToken){
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url("https://api.github.com/user")
-                    .header("Authorization", acessToken)
+                    .header("Authorization", "token "+accessToken)
                     .build();
 
-            try (Response response = client.newCall(request).execute()) {
-                String string=response.body().toString();
+            try  {
+                Response response = client.newCall(request).execute();
+//                okhttp3.internal.http.RealResponseBody要用string()
+                String string=response.body().string();
+                System.out.println(string);
 //                command alt v
                 GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
-                System.out.println(string);
+
+                return githubUser;
             }catch (IOException e){
                 e.printStackTrace();
             }
